@@ -17,7 +17,7 @@ First, import the necessary modules and create an instance of the MFRC522 class 
 
 ```python
 from mfrc522 import MFRC522
-# Constructor
+# Constructor - General Syntax
 reader = MFRC522(sck, mosi, miso, rst, cs, baudrate=1000000, spi_id=0)
 # Example
 reader = MFRC522(cs=5, sck=6, mosi=7, miso=4, rst=22)
@@ -46,12 +46,13 @@ def read_rfid_tag():
     reader_req__stat, _ = reader.request(reader.REQIDL)
     if reader_req__stat == reader.OK:
         print("Tag Detected, Scanning....")
+        utime.sleep(1)
         (tag_read__stat, uid) = reader.SelectTagSN()
         if tag_read__stat == reader.OK:
             print("Tag Successfully Scanned")
             utime.sleep(1)
             card_id = str(int.from_bytes(bytes(uid), "little"))
-            print("RFID Tag ID: " + card_id)
+            print("Tag ID: " + card_id)
             utime.sleep(2.5)
             print("\nBring TAG Closer for Scanning....")
 
